@@ -1,4 +1,11 @@
-import { createApp } from 'vue'
-import App from './App.vue'
+import { createApp } from 'vue';
+import { VuexStore } from './store';
 
-createApp(App).mount('#app')
+import App from './App.vue';
+
+import './index.css';
+
+const app = createApp(App);
+
+app.use(VuexStore);
+app.mount('#app');
