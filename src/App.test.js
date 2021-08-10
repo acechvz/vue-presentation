@@ -1,23 +1,43 @@
-import { render, fireEvent } from '@testing-library/vue';
-import '@testing-library/jest-dom';
 import Vue from 'vue';
 import Vuex from 'vuex';
+import { render, screen, waitFor } from '@testing-library/vue';
+import '@testing-library/jest-dom';
 
-import { store } from './components/Store/store';
+import App from './App.vue';
 
-// A common testing pattern is to create a custom renderer for a specific test
-// file. This way, common operations such as registering a Vuex store can be
-// abstracted out while avoiding sharing mutable state.
-//
-// Tests should be completely isolated from one another.
-// Read this for additional context: https://kentcdodds.com/blog/test-isolation-with-react
-function renderVuexTestComponent(customStore) {
-  // Render the component and merge the original store and the custom one
-  // provided as a parameter. This way, we can alter some behaviors of the
-  // initial implementation.
-  return render(VuexTest, { store: { ...store, ...customStore } });
+import characterJson from './mocks/data/character.json';
+
+import { getDefaultStore } from './store';
+
+function renderWithStore(customStore = {}) {
+  return render(App, { store: { ...getDefaultStore(), ...customStore } });
 }
 
 describe('App', () => {
-  it('should display properly a list of characters', () => {});
+  it('should display properly with default state', () => {
+    renderWithStore();
+
+    expect(screen.getByTestId('characters-list')).toBeInTheDocument();
+  });
+
+  it('should render properly characters from state', async () => {
+    renderWithStore();
+
+    await waitFor(() =>
+      expect(screen.getAllByTestId('character').length).toEqual(
+        characterJson.results.length
+      )
+    );
+  });
+
+  it('should properly fetch characters from API', async () => {
+    const getCharactersMock = jest.fn();
+    renderWithStore({
+      actions: {
+        getCharacters: getCharactersMock,
+      },
+    });
+
+    expect(getCharactersMock).toHaveBeenCalled();
+  });
 });

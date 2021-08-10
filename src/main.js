@@ -1,11 +1,16 @@
-import { createApp } from 'vue';
-import { VuexStore } from './store';
+import Vue from 'vue';
+import { store } from './store';
 
 import App from './App.vue';
 
 import './index.css';
 
-const app = createApp(App);
+if (process.env.NODE_ENV === 'development') {
+  const { worker } = require('./mocks/browser');
+  worker.start();
+}
 
-app.use(VuexStore);
-app.mount('#app');
+new Vue({
+  store,
+  render: (h) => h(App),
+}).$mount('#app');

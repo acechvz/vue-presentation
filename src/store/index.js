@@ -1,14 +1,17 @@
-import { createStore } from 'vuex';
-import api from '../api/rickMortyAPI';
+import Vue from 'vue';
+import Vuex from 'vuex';
+import api from '../api';
 
-export const store = {
-  state() {
-    return {
-      characters: [],
-    };
+Vue.use(Vuex);
+
+export const getDefaultStore = () => ({
+  state: {
+    characters: [],
   },
   mutations: {
-    SET_CHARACTERS: (state, payload) => (state.characters = payload),
+    SET_CHARACTERS: (state, payload) => {
+      state.characters = payload;
+    },
   },
   actions: {
     async getCharacters({ commit }) {
@@ -16,6 +19,6 @@ export const store = {
       commit('SET_CHARACTERS', response.data.results);
     },
   },
-};
+});
 
-export const VuexStore = createStore(store);
+export const store = new Vuex.Store(getDefaultStore());
