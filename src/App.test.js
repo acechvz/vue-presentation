@@ -1,5 +1,3 @@
-import Vue from 'vue';
-import Vuex from 'vuex';
 import { render, screen, waitFor } from '@testing-library/vue';
 import '@testing-library/jest-dom';
 
@@ -30,7 +28,7 @@ describe('App', () => {
     );
   });
 
-  it('should properly fetch characters from API', async () => {
+  it('should properly fetch characters from API', () => {
     const getCharactersMock = jest.fn();
     renderWithStore({
       actions: {

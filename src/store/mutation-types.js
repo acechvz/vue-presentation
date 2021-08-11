@@ -1,0 +1,3 @@
+export const MUTATION_TYPES = {
+  SET_CHARACTERS: 'SET_CHARACTERS',
+};

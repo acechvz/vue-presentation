@@ -9,12 +9,12 @@
 
 <script>
 import {mapActions, mapState} from 'vuex';
-import character from './components/Character/Character.vue';
+import Character from './components/Character/Character.vue';
 
 export default {
   name: 'App',
   components: {
-    character
+    Character
   },
   computed: {
     ...mapState(['characters'])

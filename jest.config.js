@@ -11,6 +11,6 @@ module.exports = {
     '!src/**/*.spec.js',
     '!**/node_modules/**',
   ],
-  modulePathIgnorePatterns: ['<rootDir>/src/mocks'],
+  modulePathIgnorePatterns: ['<rootDir>/src/mocks', '<rootDir>/e2e'],
   testPathIgnorePatterns: ['<rootDir>/src/mocks'],
 };

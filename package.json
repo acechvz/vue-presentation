@@ -3,24 +3,28 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve",
+    "serve": "cross-env PORT=3001 vue-cli-service serve",
     "serve:mock": "vue-cli-service serve --mode=development",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
     "test": "jest --coverage true",
-    "update": "npx msw init public --no-save"
+    "update": "npx msw init public --no-save",
+    "cy:run": "cypress run",
+    "test:e2e": "start-server-and-test serve http://localhost:3001 cy:run"
   },
   "dependencies": {
     "autoprefixer": "^9.8.6",
     "axios": "^0.21.1",
     "core-js": "^3.6.5",
+    "cross-env": "^7.0.2",
+    "cypress": "^4.12.0",
+    "cypress-real-events": "^1.5.1",
     "msw": "^0.34.0",
     "postcss": "^7.0.36",
+    "start-server-and-test": "^1.11.0",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.2.7",
     "vue": "^2.6.12",
-    "vuex": "^3.6.2",
-    "cypress": "^4.12.0",
-    "cross-env": "^7.0.2"
+    "vuex": "^3.6.2"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^5.14.1",
